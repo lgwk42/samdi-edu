@@ -65,13 +65,16 @@ public class BoardController {
     }
 
     @PostMapping("/board/update/{id}")
-    public String boardUpdate(@PathVariable("id") Integer id, Board board, MultipartFile file) throws Exception {
+    public String boardUpdate(@PathVariable("id") Integer id, Board board, MultipartFile file, Model model) throws Exception {
         Board boardTemp = boardService.boardView(id);
         boardTemp.setTitle(board.getTitle());
         boardTemp.setContent(board.getContent());
 
         boardService.write(boardTemp, file);
 
-        return "redirect:/board/list";
+        model.addAttribute("message","글이 수정되었습니다");
+        model.addAttribute("searchUrl","/board/list");
+
+        return "message";
     }
 }
