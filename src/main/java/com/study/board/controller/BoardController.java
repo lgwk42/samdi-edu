@@ -32,6 +32,7 @@ public class BoardController {
 
         return "boardList";
     }
+    
     @GetMapping("/board/view")
     public String boardView(Model model, Integer id){
         model.addAttribute("board", boardService.boardView(id));
@@ -47,8 +48,20 @@ public class BoardController {
     }
 
     @GetMapping("/board/modify/{id}")
-    public String boardModify(@PathVariable("id") Integer id){
+    public String boardModify(@PathVariable("id") Integer id, Model model){
+        model.addAttribute("board",boardService.boardView(id));
 
         return "boardModify";
+    }
+
+    @PostMapping("/board/update/{id}")
+    public String boardUpdate(@PathVariable("id") Integer id, Board board){
+        Board boardTemp = boardService.boardView(id);
+        boardTemp.setTitle(board.getTitle());
+        boardTemp.setContent(board.getContent());
+
+        boardService.write(boardTemp);
+
+        return "redirect:/board/list";
     }
 }
