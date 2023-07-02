@@ -8,6 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 @Controller
 public class BoardController {
@@ -21,10 +25,13 @@ public class BoardController {
     }
 
     @PostMapping("/board/writepro")
-    public String boardWritePro(Board board){
-        boardService.write(board);
+    public String boardWritePro(Board board, Model model, MultipartFile file) throws Exception {
+        boardService.write(board, file);
 
-        return "";
+        model.addAttribute("message","글 작성이 완료되었습니다.");
+        model.addAttribute("searchUrl","/board/list");
+
+        return "message";
     }
     @GetMapping("/board/list")
     public String boardList(Model model){
@@ -41,10 +48,13 @@ public class BoardController {
     }
 
     @GetMapping("/board/delete")
-    public String boardDelete(Integer id){
+    public String boardDelete(Integer id, Model model){
         boardService.boardDelete(id);
 
-        return "redirect:/board/list";
+        model.addAttribute("message","글이 삭제되었습니다.");
+        model.addAttribute("searchUrl","/board/list");
+
+        return "message";
     }
 
     @GetMapping("/board/modify/{id}")
@@ -55,12 +65,12 @@ public class BoardController {
     }
 
     @PostMapping("/board/update/{id}")
-    public String boardUpdate(@PathVariable("id") Integer id, Board board){
+    public String boardUpdate(@PathVariable("id") Integer id, Board board, MultipartFile file) throws Exception {
         Board boardTemp = boardService.boardView(id);
         boardTemp.setTitle(board.getTitle());
         boardTemp.setContent(board.getContent());
 
-        boardService.write(boardTemp);
+        boardService.write(boardTemp, file);
 
         return "redirect:/board/list";
     }
