@@ -49,8 +49,6 @@ public class BoardController {
             list = boardService.boardSearchList(searchKeyword,pageable);
         }
 
-
-
         model.addAttribute("list", list);
 
         int nowPage = list.getPageable().getPageNumber() + 1;
@@ -93,13 +91,13 @@ public class BoardController {
     }
 
     @PostMapping("/board/update/{id}")
-    public String boardUpdate(@PathVariable("id") Integer id, Board board, MultipartFile file, Model model) throws Exception {
+    public String boardUpdate(@PathVariable("id") Integer id, Board board, Model model){
 
         Board boardTemp = boardService.boardView(id);
         boardTemp.setTitle(board.getTitle());
         boardTemp.setContent(board.getContent());
 
-        boardService.write(boardTemp, file);
+        boardService.writeModify(boardTemp);
 
         model.addAttribute("message", "글이 수정되었습니다");
         model.addAttribute("searchUrl", "/board/list");
