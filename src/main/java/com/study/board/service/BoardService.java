@@ -33,7 +33,6 @@ public class BoardService {
         board.setFilepath("/files/" + fileName);
 
         boardRepository.save(board);
-
     }
 
     // 게시물 수정 처리
@@ -46,7 +45,7 @@ public class BoardService {
 
         return boardRepository.findAll(pageable);
     }
-
+    // 검색 기능 처리
     public Page<Board> boardSearchList(String searchKeyword, Pageable pageable){
 
         return boardRepository.findByTitleContaining(searchKeyword, pageable);

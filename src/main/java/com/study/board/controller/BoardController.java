@@ -35,7 +35,7 @@ public class BoardController {
 
         return "message";
     }
-
+    
     @GetMapping("/board/list")
     public String boardList(Model model,
                             @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
@@ -72,9 +72,9 @@ public class BoardController {
     }
 
     @GetMapping("/board/delete")
-    public String boardDelete(Integer id, Model model) {
+    public String boardDelete(Integer idx, Model model) {
 
-        boardService.boardDelete(id);
+        boardService.boardDelete(idx);
 
         model.addAttribute("message", "글이 삭제되었습니다.");
         model.addAttribute("searchUrl", "/board/list");
