@@ -16,19 +16,19 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class BoardController {
+
     @Autowired
     private BoardService boardService;
 
     @GetMapping("/board/write") // localhost:8080/board/write
     public String boardWriteForm() {
-
         return "boardWrite";
     }
 
     @PostMapping("/board/writepro")
-    public String boardWritePro(Board board, Model model, MultipartFile file) throws Exception {
+    public String boardWritePro(Board board, Model model){
 
-        boardService.write(board, file);
+        boardService.write(board);
 
         model.addAttribute("message", "글 작성이 완료되었습니다.");
         model.addAttribute("searchUrl", "/board/list");
@@ -72,7 +72,7 @@ public class BoardController {
     }
 
     @GetMapping("/board/delete")
-    public String boardDelete(Integer idx, Model model) {
+    public String boardDelete(Long idx, Model model) {
 
         boardService.boardDelete(idx);
 
