@@ -10,25 +10,70 @@
         margin: 0 auto;
         margin-top: 40px;
     }
+
+    #idSearch {
+        width: 400px;
+        height: 40px;
+        border-radius: 10px;
+        border: 1px solid magenta;
+    }
+
+    #idSearchBtn {
+        width: 75px;
+        height: 45px;
+        border-radius: 10px;
+        border: 1px solid magenta;
+        background-color: magenta;
+        color: white;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    thead {
+        border: 1px solid magenta;
+    }
+
+    tbody {
+        border: 1px solid magenta;
+    }
+
+    #idNum {
+        width: 60px;
+        text-align: center;
+        border: 1px solid magenta;;
+    }
+
+    #idTitle {
+        width: 420px;
+        height: 30px;
+    }
+
+    td {
+        text-align: center;
+        height: 30px;
+    }
+
 </style>
 <body>
   <div class="layout">
       <form th:action="@{/board/list}" method="get">
-          <input type="text" name="searchKeyword">
-          <button type="submit">검색</button>
+          <input type="text" name="searchKeyword" id="idSearch">
+          <button type="submit" id="idSearchBtn">검색</button>
       </form>
       <br>
         <table>
-            <thead>
+            <thead class="clsNumTitle">
                 <tr>
-                    <th>글번호</th>
-                    <th>제목</th>
+                    <th id="idNum">글번호</th>
+                    <th id="idTitle">제목</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody >
                 <tr th:each="board : ${list}">
                     <td th:text="${board.id}">1</td>
-                    <td style="text-align: center">
+                    <td>
                         <a th:text="${board.title}" th:href="@{/board/view(id=${board.id})}"></a>
                     </td>
                 </tr>
