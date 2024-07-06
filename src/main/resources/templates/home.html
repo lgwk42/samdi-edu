@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>게시판 홈</title>
+
+</head>
+<style>
+    h1{
+        text-align: center;
+    }
+
+    div {
+        text-align: center;
+    }
+
+    button {
+        height: 50px;
+        width: 100px;
+        font-size: 24px;
+        display: inline-block;
+    }
+</style>
+<body>
+<h1>게시판 홈</h1>
+<div>
+    <form th:action="@{/board/write}" method="get" enctype="multipart/form-data">
+        <button type="submit"> click </button>
+    </form>
+</div>
+
+<!--여기서 게시판 홈을 꾸밀 수 있습니다.
+마음 껏 여러분들이 원하는 색깔을 채워넣으면서 홈페이지를 꾸며주세요!-->
+</body>
+</html>
